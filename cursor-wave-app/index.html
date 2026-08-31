@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Wave - Interactive HTML5 Canvas Grid Effect</title>
+  <meta name="description" content="High-performance zero-dependency Cursor Wave component built with pure Vanilla JS, HTML5 Canvas 2D API, and CSS." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Interactive Canvas Layer -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation Header -->
+    <header class="app-nav">
+      <div class="brand-badge">
+        <span class="pulse-dot"></span>
+        <span class="brand-text">CURSOR WAVE // ENGINE v1.0</span>
+      </div>
+      <div class="nav-actions">
+        <button id="burst-btn-top" class="nav-btn" title="Trigger Radial Click Burst">
+          <span>💥</span> Burst
+        </button>
+        <button id="drawer-toggle-btn" class="nav-btn" title="Toggle Live Control Panel">
+          <span>⚙️</span> Controls
+        </button>
+      </div>
+    </header>
+
+    <!-- Central Hero Showcase Section -->
+    <main class="hero-content">
+      <div class="hero-card-grid">
+        <!-- Masked Hero Card 1 -->
+        <article class="masked-card" data-cursor-wave-mask>
+          <span class="card-pill">INTERACTIVE BACKGROUND</span>
+          <h1 class="card-title">CURSOR <span>WAVE</span></h1>
+          <p class="card-desc">
+            A 2D matrix of dynamic shapes that swell, rotate, and ripple seamlessly as your cursor glides across the screen.
+          </p>
+          <div class="card-actions">
+            <button id="hero-burst-btn" class="btn-primary">Test Shockwave</button>
+            <button id="hero-toggle-drawer" class="btn-secondary">Customize Grid</button>
+          </div>
+        </article>
+
+        <!-- Masked Hero Card 2 -->
+        <article class="masked-card" data-cursor-wave-mask>
+          <span class="card-pill">ZERO DEPENDENCIES</span>
+          <h2 class="card-title">PURE <span>CANVAS 2D</span></h2>
+          <p class="card-desc">
+            Engineered entirely with native Web APIs (`CanvasRenderingContext2D`, `requestAnimationFrame`). Zero external npm packages, framework dependencies, or CDNs.
+          </p>
+          <div class="card-actions">
+            <button id="preset-neon-btn" class="btn-secondary">Neon Mode</button>
+            <button id="preset-aurora-btn" class="btn-secondary">Aurora Mode</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Preset Switching Bar -->
+      <nav class="preset-bar" aria-label="Preset Switcher">
+        <button class="preset-chip active" data-preset="neon">⚡ Cyberpunk Neon</button>
+        <button class="preset-chip" data-preset="aurora">🌿 Emerald Aurora</button>
+        <button class="preset-chip" data-preset="sunset">🌅 Sunset Glow</button>
+        <button class="preset-chip" data-preset="gold">👑 Minimal Gold</button>
+        <button class="preset-chip" data-preset="monochrome">🌑 Deep Space</button>
+      </nav>
+    </main>
+
+    <!-- Floating Live Control Panel Drawer -->
+    <aside id="control-drawer" class="control-drawer" aria-label="Control Panel">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span>🎛️</span> Engine Parameters
+        </div>
+        <button id="drawer-close-btn" class="close-btn" aria-label="Close Control Drawer">&times;</button>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Cell Size Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Cell Spacing</span>
+            <span id="val-cellSize" class="control-val">40px</span>
+          </div>
+          <input type="range" id="input-cellSize" min="16" max="80" step="2" value="40" />
+        </div>
+
+        <!-- Influence Radius Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Influence Radius</span>
+            <span id="val-influenceRadiusVmin" class="control-val">30%</span>
+          </div>
+          <input type="range" id="input-influenceRadiusVmin" min="5" max="70" step="1" value="30" />
+        </div>
+
+        <!-- Attack Time Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Attack Ease Time</span>
+            <span id="val-attackTime" class="control-val">0.30s</span>
+          </div>
+          <input type="range" id="input-attackTime" min="0.05" max="1.5" step="0.05" value="0.3" />
+        </div>
+
+        <!-- Release Time Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Release Ease Time</span>
+            <span id="val-releaseTime" class="control-val">0.50s</span>
+          </div>
+          <input type="range" id="input-releaseTime" min="0.05" max="1.5" step="0.05" value="0.5" />
+        </div>
+
+        <!-- Idle Scale Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Resting Scale</span>
+            <span id="val-idleScale" class="control-val">0.10</span>
+          </div>
+          <input type="range" id="input-idleScale" min="0" max="0.4" step="0.01" value="0.1" />
+        </div>
+
+        <!-- Max Peak Scale Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Max Swell Scale</span>
+            <span id="val-maxPeakScale" class="control-val">3.00x</span>
+          </div>
+          <input type="range" id="input-maxPeakScale" min="1" max="5" step="0.1" value="3.0" />
+        </div>
+
+        <!-- Burst Speed Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Burst Velocity</span>
+            <span id="val-burstSpeed" class="control-val">1200 px/s</span>
+          </div>
+          <input type="range" id="input-burstSpeed" min="300" max="3000" step="50" value="1200" />
+        </div>
+
+        <!-- Web Dev Icon Shapes Selector -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Web Dev Icon Shapes</span>
+          </div>
+          <div class="shape-selector">
+            <button class="shape-btn selected" data-shape="code">Code &lt;/&gt;</button>
+            <button class="shape-btn selected" data-shape="braces">Braces {}</button>
+            <button class="shape-btn selected" data-shape="terminal">Terminal &gt;_</button>
+            <button class="shape-btn selected" data-shape="layers">Layers</button>
+            <button class="shape-btn selected" data-shape="atom">Atom</button>
+            <button class="shape-btn selected" data-shape="database">Database</button>
+            <button class="shape-btn selected" data-shape="gear">Gear</button>
+            <button class="shape-btn selected" data-shape="rocket">Rocket</button>
+            <button class="shape-btn selected" data-shape="box">Box &lt;div&gt;</button>
+            <button class="shape-btn selected" data-shape="bug">Bug</button>
+          </div>
+        </div>
+
+        <!-- Color Palette Preset -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Color Palette</span>
+          </div>
+          <div class="color-selector">
+            <div class="color-swatch color-swatch-1 active" data-color-scheme="neon" title="Cyberpunk Neon"></div>
+            <div class="color-swatch color-swatch-2" data-color-scheme="aurora" title="Emerald Aurora"></div>
+            <div class="color-swatch color-swatch-3" data-color-scheme="sunset" title="Sunset Glow"></div>
+            <div class="color-swatch color-swatch-4" data-color-scheme="monochrome" title="Deep Space Monochrome"></div>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="control-group" style="margin-top: 0.5rem;">
+          <button id="drawer-burst-btn" class="full-width-btn">💥 Trigger Burst Wave</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Main Controller Module -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

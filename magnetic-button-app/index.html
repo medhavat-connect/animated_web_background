@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magnetic Button - Zero Dependency Spring Physics UI</title>
+  <meta name="description" content="Tactile magnetic button attraction effect built with native Damped Spring Physics in pure Vanilla JS, HTML5, and CSS." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Ambient Glows -->
+  <div class="ambient-bg">
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+  </div>
+
+  <div class="app-viewport">
+    <!-- Header -->
+    <header class="app-nav">
+      <div class="brand-badge">
+        <span class="pulse-dot"></span>
+        <span class="brand-text">MAGNETIC // ENGINE v1.0</span>
+      </div>
+      <div class="brand-badge" style="background: rgba(0, 240, 255, 0.1); border-color: rgba(0, 240, 255, 0.3);">
+        <span style="font-size: 0.8125rem; font-weight: 700; color: var(--accent-cyan);">ZERO DEPENDENCIES</span>
+      </div>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="hero-header">
+      <span class="hero-pill">ACETERENITY UI COMPONENT</span>
+      <h1 class="hero-title">MAGNETIC <span>BUTTON</span></h1>
+      <p class="hero-sub">
+        Hover near any button to experience smooth magnetic cursor attraction with native damped spring physics. Zero Framer Motion or external CDNs required.
+      </p>
+    </section>
+
+    <!-- Showcase Grid -->
+    <section class="showcase-grid">
+      <!-- Card 1: Primary CTA Magnetic Button -->
+      <article class="glass-card">
+        <div class="card-icon-badge">🧲</div>
+        <h2 class="card-title">Primary CTA Button</h2>
+        <p class="card-desc">High-attraction magnetic pull with vibrant gradient glow and spring snap back.</p>
+
+        <div class="magnetic-trigger" data-magnetic>
+          <div class="magnetic-target">
+            <button class="magnetic-btn-primary">
+              <span>Launch Experience</span>
+              <span style="font-size: 1.1rem;">🚀</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Glassmorphic Badge Button -->
+      <article class="glass-card">
+        <div class="card-icon-badge">✨</div>
+        <h2 class="card-title">Glassmorphic Pill</h2>
+        <p class="card-desc">Frosted glass backdrop with active spring outline and subtle magnetic displacement.</p>
+
+        <div class="magnetic-trigger" data-magnetic style="--show-color: var(--accent-purple);">
+          <div class="magnetic-target">
+            <button class="magnetic-btn-glass">
+              <span>Explore Components</span>
+              <span style="font-size: 1.1rem;">⚡</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Floating Action FAB -->
+      <article class="glass-card">
+        <div class="card-icon-badge">💥</div>
+        <h2 class="card-title">Floating Action Button</h2>
+        <p class="card-desc">Compact circular FAB with high spring stiffness and responsive touch dynamics.</p>
+
+        <div class="magnetic-trigger" data-magnetic style="--show-color: var(--accent-pink);">
+          <div class="magnetic-target">
+            <button class="magnetic-fab" title="Quick Action">
+              <span>+</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Spring Tuning Panel -->
+    <section class="tuning-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🎛️</span> Spring Physics Tuning
+        </div>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">F = -k(x) - c(v)</span>
+      </div>
+
+      <div class="panel-grid">
+        <!-- Strength Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Attraction Strength</span>
+            <span id="val-strength" class="control-val">0.80</span>
+          </div>
+          <input type="range" id="input-strength" min="0.2" max="2.0" step="0.05" value="0.8" />
+        </div>
+
+        <!-- Max Distance Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Max Displacement Cap</span>
+            <span id="val-maxDistance" class="control-val">100px</span>
+          </div>
+          <input type="range" id="input-maxDistance" min="30" max="200" step="5" value="100" />
+        </div>
+
+        <!-- Stiffness Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Spring Stiffness (k)</span>
+            <span id="val-stiffness" class="control-val">180</span>
+          </div>
+          <input type="range" id="input-stiffness" min="50" max="400" step="10" value="180" />
+        </div>
+
+        <!-- Damping Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Spring Damping (c)</span>
+            <span id="val-damping" class="control-val">18</span>
+          </div>
+          <input type="range" id="input-damping" min="5" max="50" step="1" value="18" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

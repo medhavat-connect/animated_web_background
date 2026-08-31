@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYBER FRAME 240 - Cinematic Scroll Hero</title>
+  <meta name="description" content="Ultra-smooth, scroll-controlled 30 FPS video frame sequence hero section built with HTML5 Canvas and dynamic image preloader." />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- Minimalist Premium Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="loader-content">
+      <div class="loader-badge">
+        <span class="pulse-dot"></span>
+        <span>Initialising Sequence Engine</span>
+      </div>
+      <div id="loader-percent" class="loader-percent">0%</div>
+      <div class="loader-bar-bg">
+        <div id="loader-bar-fill" class="loader-bar-fill"></div>
+      </div>
+      <div id="loader-subtext" class="loader-subtext">Preloading 240 high-definition frames...</div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="#" class="nav-brand">
+      <div class="brand-icon">240</div>
+      <span>NEO // ANIME</span>
+    </a>
+    <div class="nav-actions">
+      <button id="audio-toggle" class="btn-icon" title="Toggle Ambient Audio Synth">
+        <span>🔊</span> Audio: OFF
+      </button>
+      <button id="motion-toggle" class="btn-icon" title="Toggle Motion Smoothness">
+        <span>⚡</span> Smooth: ON
+      </button>
+      <button id="fullscreen-toggle" class="btn-icon" title="Toggle Fullscreen">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Locked 100vh Hero Scroll Sequence Section -->
+  <section id="sequence-section" class="sequence-section">
+    <div class="sticky-hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-vignette"></div>
+
+      <!-- Keyframe Story Overlays -->
+      <div class="hero-story-overlay">
+        <!-- Story Card 1 (0% - 22%) -->
+        <div class="story-card active" data-start="0" data-end="0.22">
+          <span class="story-pill">ANIME ENGINE v2.4</span>
+          <h1 class="story-title">NEO TOKYO <span>2099</span></h1>
+          <p class="story-desc">
+            A high-performance scroll-driven sequence experience. Every frame rendered on HTML5 Canvas synchronized directly to your scroll position.
+          </p>
+        </div>
+
+        <!-- Story Card 2 (25% - 48%) -->
+        <div class="story-card" data-start="0.25" data-end="0.48">
+          <span class="story-pill">PRECISION MOTION</span>
+          <h2 class="story-title">FLUIDITY AT <span>30 FPS</span></h2>
+          <p class="story-desc">
+            Decoded dynamically in image memory with zero latency. Scroll down to advance, scroll up to reverse smoothly.
+          </p>
+        </div>
+
+        <!-- Story Card 3 (52% - 75%) -->
+        <div class="story-card" data-start="0.52" data-end="0.75">
+          <span class="story-pill">NEON HORIZON</span>
+          <h2 class="story-title">ENGINEERED FOR <span>PERFECTION</span></h2>
+          <p class="story-desc">
+            HiDPI pixel ratio scaling guarantees ultra-crisp presentation on 4K displays with responsive cover aspect ratio mapping.
+          </p>
+        </div>
+
+        <!-- Story Card 4 (78% - 100%) -->
+        <div class="story-card" data-start="0.78" data-end="1.0">
+          <span class="story-pill">CLIMAX REACHED</span>
+          <h2 class="story-title">THE FUTURE IS <span>NOW</span></h2>
+          <p class="story-desc">
+            Sequence complete. Scroll back up to replay the cinematic animation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Scroll Hint -->
+      <div class="scroll-hint">
+        <div class="mouse-icon">
+          <div class="mouse-wheel"></div>
+        </div>
+        <span>SCROLL TO ANIMATE</span>
+      </div>
+
+      <!-- Floating HUD Dashboard -->
+      <div id="hud-dashboard" class="hero-hud-dashboard">
+        <div class="hud-row">
+          <span class="hud-label">FRAME INDEX</span>
+          <span id="hud-frame-num" class="hud-value">001 / 240</span>
+        </div>
+        <div class="hud-row">
+          <span class="hud-label">PROGRESS</span>
+          <span id="hud-progress-percent" class="hud-value">0%</span>
+        </div>
+        
+        <div id="hud-scrubber-bg" class="hud-scrubber-bg" title="Click or drag to seek frame">
+          <div id="hud-scrubber-fill" class="hud-scrubber-fill"></div>
+        </div>
+
+        <div class="hud-controls">
+          <button id="hud-lerp-btn" class="hud-btn" title="Toggle Smooth Interpolation">LERP: ON</button>
+          <button id="hud-play-btn" class="hud-btn" title="Auto-Preview Sequence">PREVIEW</button>
+          <button id="hud-top-btn" class="hud-btn" title="Reset to Start">RESET</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
