@@ -78,6 +78,3 @@ npx vite magnetic-button-app --port 5174
 Open [http://localhost:5174](http://localhost:5174) in your browser.
 
 ---
-
-## 📄 License
-MIT License. Created for production-ready interactive web application experiences.
