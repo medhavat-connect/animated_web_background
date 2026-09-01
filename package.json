@@ -1,5 +1,5 @@
 {
-  "name": "cinematic-scroll-hero",
+  "name": "medhavat-animation-library",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,9 +9,24 @@
     "prebuild": "npm run manifest",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "jellyfish": "vite jellyfish-simulation-app --port 5175",
+    "cursor-wave": "vite cursor-wave-app --port 5173",
+    "magnetic-button": "vite magnetic-button-app --port 5174"
   },
   "devDependencies": {
-    "vite": "^5.4.1"
+    "@babel/generator": "^8.0.0",
+    "@babel/parser": "^8.0.4",
+    "@babel/traverse": "^8.0.4",
+    "@babel/types": "^8.0.4",
+    "vite": "^5.4.1",
+    "vite-plugin-tsl-operator": "^1.10.0"
+  },
+  "dependencies": {
+    "@tweakpane/plugin-essentials": "^0.2.1",
+    "simplex-noise": "^4.0.3",
+    "three": "^0.185.1",
+    "tweakpane": "^4.0.5",
+    "tweakpane-plugin-infodump": "^4.0.2"
   }
 }

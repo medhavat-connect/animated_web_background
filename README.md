@@ -1,80 +1,68 @@
-# ⚡ Interactive Web UI Components & Canvas Effects
+# 🎨 Medhavat Technologies — Reusable Animated Components & 3D WebGL Effects
 
-A high-performance collection of zero-dependency interactive background effects and tactile UI components built with native **HTML5 Canvas 2D API**, **Vanilla ES6 JavaScript**, and **Glassmorphism CSS**.
-
----
-
-## 🚀 Projects Included
-
-### 1. 🌊 **Cursor Wave Application** (`cursor-wave-app/`)
-Inspired by *React Bits Pro*. An interactive 2D grid matrix of web development icons that swell, rotate, and ripple in response to mouse motion and click events.
-
-- **Native Web Dev Icons**: Drawn using pure HTML5 2D vector paths (`code`, `braces`, `terminal`, `layers`, `atom`, `database`, `gear`, `rocket`, `box`, `bug`).
-- **Smoothstep Distance Easing**: $f(t) = t^2(3-2t)$ falloff math with configurable attack & release time constants.
-- **Radial Click Shockwaves**: Sinusoidal ripple expansion wave ($u = \sin(\pi c)$) on click or trigger.
-- **Element Masking (`[data-cursor-wave-mask]`)**: Hides shapes under frosted Glassmorphism UI tiles for text contrast.
-- **Theme Presets**: Cyberpunk Neon, Emerald Aurora, Sunset Glow, Minimal Gold, and Deep Space Monochrome.
+A centralized, production-grade library of interactive visual effects, physics-based UI components, and 3D WebGL scenes developed for the **Medhavat** digital platform.
 
 ---
 
-### 2. 🧲 **Magnetic Button Application** (`magnetic-button-app/`)
-Inspired by *Aceternity UI*. Tactile cursor-attraction magnetic buttons powered by a native **Damped Harmonic Oscillator Spring Physics** engine.
+## 👥 Maintainers
 
-- **Spring Differential Physics**: Simulates $F = -k \cdot x - c \cdot v$ ($k = \text{stiffness}$, $c = \text{damping}$, $m = \text{mass}$) without Framer Motion or external physics libraries.
-- **Sub-stepped Integration**: 4× sub-stepping per frame step with hard position clamping to prevent numerical explosions.
-- **Zero-Flicker Hit Areas**: Expanded hit padding and pointer-events isolation for smooth, shake-free tracking.
-- **Active Outlines**: Aceternity UI-style active dashed border ring (`.is-magnetic-active`).
-- **Live Physics Tuning**: Interactive controls to adjust attraction strength, max distance, stiffness, and damping.
+This repository is maintained by:
 
----
+| Name | Email |
+|---|---|
+| **Amit Deokar** | [amit.mdeokar@gmail.com](mailto:amit.mdeokar@gmail.com) |
+| **Wasim Ansari** | [wsmaisys@gmail.com](mailto:wsmaisys@gmail.com) |
 
-## 🛠️ Tech Stack & Philosophy
-
-- **Core**: HTML5, ES6 JavaScript, Vanilla CSS.
-- **Zero Dependencies**: 0 npm runtime dependencies, 0 CDN links, 0 external font files.
-- **High Performance**: Optimized for 60 FPS using `requestAnimationFrame`, High-DPI scaling (`devicePixelRatio`), and `ResizeObserver`.
+> Any conflict of interest, structural disagreement, or critical issue with this library must be communicated **directly and immediately** to both maintainers.
 
 ---
 
-## 📦 Project Structure
+## 🚀 Quick Start
 
-```
-.
-├── cursor-wave-app/          # Standalone Cursor Wave App
-│   ├── index.html            # Main HTML layout & control drawer
-│   ├── cursor-wave.js        # Canvas 2D CursorWave Engine
-│   ├── style.css             # Glassmorphic CSS design system
-│   └── main.js               # App controller & preset logic
-│
-├── magnetic-button-app/      # Standalone Magnetic Button App
-│   ├── index.html            # Showcase layout & physics sliders
-│   ├── magnetic-button.js    # Damped Spring Physics Class
-│   ├── style.css             # Glassmorphism & active outline styles
-│   └── main.js               # Physics slider controller
-│
-├── .gitignore                # Git ignore rules
-└── README.md                 # Project documentation
-```
+Run the entire library showcase hub on port 3000:
 
----
-
-## ⚡ Quick Start & Development
-
-### Prerequisite
-Make sure [Node.js](https://nodejs.org/) is installed on your machine.
-
-### Running Applications Locally
-
-#### Run Cursor Wave:
 ```bash
-npx vite cursor-wave-app --port 5173
+npm install
+npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-#### Run Magnetic Button:
-```bash
-npx vite magnetic-button-app --port 5174
-```
-Open [http://localhost:5174](http://localhost:5174) in your browser.
+Visit **`http://localhost:3000/`** to view the interactive Showcase Hub with tiles for each animation element and direct links to all dedicated experiences.
 
 ---
+
+## 📦 Directory of Components & Animations
+
+| Component / Scene | Route / Directory | Technology | Description |
+| :--- | :--- | :--- | :--- |
+| **🎬 Cyber Frame 240** | [`/cyber-frame-app/`](./cyber-frame-app/) | Canvas 2D, 240 JPG frames | 30 FPS scroll-scrubbed video frame sequence with interactive HUD scrubber and Web Audio synth. |
+| **🪼 Aurelia 3D Jellyfish** | [`/jellyfish-simulation-app/`](./jellyfish-simulation-app/) | Three.js, TSL Shaders, Tweakpane | Procedural 3D jellyfish with Verlet tentacle physics, TSL thin-film iridescence, and bioluminescent organs. |
+| **🌊 Cursor Wave Matrix** | [`/cursor-wave-app/`](./cursor-wave-app/) | HTML5 Canvas 2D, JS | Interactive vector grid matrix that swells, rotates, and ripples with cursor movement and shockwaves. |
+| **🧲 Magnetic Button Physics** | [`/magnetic-button-app/`](./magnetic-button-app/) | CSS, JS Spring Physics | Tactile cursor-attraction buttons driven by a damped harmonic oscillator physics engine ($F = -kx - cv$). |
+| **🌌 Crystalline Bloom Portal** | [`/bloom-portal-scene/`](./bloom-portal-scene/) | Three.js, UnrealBloomPass | Dual vortex energy portal with particle filaments and real-time HDR bloom post-processing. |
+| **🌍 3D Country Boundary Globe** | [`/interactive-globe-scene/`](./interactive-globe-scene/) | Three.js, GeoJSON GIS | Interactive 3D globe with GeoJSON country borders, gyroscopic momentum physics, and flight arcs. |
+| **🧠 Neural Network AI Mesh** | [`/neural-network-ai-scene/`](./neural-network-ai-scene/) | Three.js, WebGL | Dynamic synaptic neural graph with traveling signal pulses, activation clusters, and bloom. |
+| **🌐 Digital Experience Lattice** | [`/digital-experience-lattice-scene/`](./digital-experience-lattice-scene/) | Three.js, Shaders | Undulating 3D wave plane with mouse raycast proximity displacement and interactive tooltips. |
+| **✨ Deep Space Nebula** | [`/space-nebula-scene/`](./space-nebula-scene/) | Three.js Particle System | 60 FPS lightweight volumetric starfield, concentric orbit rings, and drift kinetics. |
+| **📜 Scroll Camera Controller** | [`/scroll-camera-controller/`](./scroll-camera-controller/) | JS Timeline Interpolation | Maps viewport scroll progression to 3D camera matrices and scene transitions without jitter. |
+
+---
+
+## 🛠️ Shared Assets & Architecture
+
+- **`vendor/three/`**: Shared Three.js core modules, controls (`OrbitControls`), and post-processing passes (`EffectComposer`, `UnrealBloomPass`, `OutputPass`, `RenderPass`).
+- **`public/`**: Shared static resources including 240 sequence frames, `world-countries.geojson`, and manifest definitions.
+- **`src/hub.js` & `src/hub.css`**: Showcase Hub engine with real-time category filtering, search, and specification dialogs.
+
+---
+
+## 🤝 Contributing & Library Maintenance
+
+> Before adding a new element or modifying existing structure, **read the contributing guide first.**
+
+- **[`CONTRIBUTING.md`](./CONTRIBUTING.md)** — Full rules for adding new elements, naming conventions, hub registration steps, and the pre-commit checklist.
+- **[`.agents/rules/library-maintenance.md`](./.agents/rules/library-maintenance.md)** — Quick-reference enforcement rules automatically loaded by AI coding assistants.
+
+**The two most critical steps when adding any new element:**
+1. Add an entry to the `ELEMENTS` array in [`src/hub.js`](./src/hub.js)
+2. Add the `index.html` entry point to `rollupOptions.input` in [`vite.config.js`](./vite.config.js)
+

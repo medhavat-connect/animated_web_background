@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scroll Camera Controller & Timeline — Medhavat WebGL</title>
+  <meta name="description" content="Timeline coordinator mapping scroll progression to 3D camera vectors, rotations, and section scene transitions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --accent-cyan: #00f0ff;
+      --accent-violet: #a855f7;
+      --text-primary: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-light: rgba(255, 255, 255, 0.1);
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      min-height: 400vh;
+      position: relative;
+    }
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .scroll-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+      box-shadow: 0 0 12px var(--accent-cyan);
+      transition: width 0.1s ease-out;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(7, 9, 14, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      color: #000;
+      font-weight: 800;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+    
+    /* Content sections */
+    .sections-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 2rem 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 50vh;
+    }
+    .home-section {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 3rem;
+      opacity: 0.2;
+      transform: translateY(40px) scale(0.96);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .home-section.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 9999px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+    .title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .title span {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .hud-telemetry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .telemetry-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .telemetry-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+    .floating-hud {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/" class="brand-badge" title="Back to Component Hub">
+      <div class="brand-icon">📜</div>
+      <span>SCROLL CAMERA CONTROLLER</span>
+    </a>
+    <a href="/" class="nav-btn">
+      <span>🏠</span> Library Hub
+    </a>
+  </header>
+
+  <main class="sections-container">
+    <!-- Landmark 1 -->
+    <section class="home-section">
+      <span class="pill">Landmark 01 // Initial State</span>
+      <h1 class="title">Section-Aware <span>Progress Normalization</span></h1>
+      <p class="desc">
+        Converts continuous browser window scroll offsets into localized [0, 1] progression curves for 3D camera matrix interpolation, preventing abrupt jumps and viewport jitter.
+      </p>
+      <div class="hud-telemetry">
+        <div class="telemetry-item">
+          <span class="telemetry-label">Easing Curve</span>
+          <span class="telemetry-val">Cubic Bézier</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">Observer Mode</span>
+          <span class="telemetry-val">IntersectionObserver</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Landmark 2 -->
+    <section class="home-section">
+      <span class="pill">Landmark 02 // Interpolation Engine</span>
+      <h2 class="title">Exponential Decay & <span>Decoupled Inertia</span></h2>
+      <p class="desc">
+        Separates scroll input rate from render tick timing using damped lerp integration. Prevents frame dropping even when users scroll with accelerated trackpads.
+      </p>
+      <div class="hud-telemetry">
+        <div class="telemetry-item">
+          <span class="telemetry-label">Decay Half-Life</span>
+          <span class="telemetry-val">140 ms</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">Target FPS</span>
+          <span class="telemetry-val">60 FPS Smooth</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Landmark 3 -->
+    <section class="home-section">
+      <span class="pill">Landmark 03 // Scene Handshake</span>
+      <h2 class="title">Cross-Scene <span>Transitions</span></h2>
+      <p class="desc">
+        Coordinates camera field of view (FOV), target translation vectors, and shader cross-fades between adjacent 3D WebGL scenes seamlessly.
+      </p>
+      <div class="hud-telemetry">
+        <div class="telemetry-item">
+          <span class="telemetry-label">FOV Range</span>
+          <span class="telemetry-val">38° — 45°</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">Camera Axis</span>
+          <span class="telemetry-val">Spherical Lerp</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-hud">
+    <div>SCROLL PROGRESS: <span id="hud-pct" style="color: var(--accent-cyan); font-weight: 700;">0%</span></div>
+    <div>SCROLL STATUS: <span id="hud-status" style="color: var(--text-muted);">IDLE</span></div>
+  </div>
+
+  <script type="module" src="./scroll-experience.js"></script>
+  <script type="module">
+    const progressBar = document.querySelector('.scroll-progress span');
+    const hudPct = document.getElementById('hud-pct');
+    const hudStatus = document.getElementById('hud-status');
+
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+      if (progressBar) progressBar.style.width = `${progress}%`;
+      if (hudPct) hudPct.textContent = `${Math.round(progress)}%`;
+      if (hudStatus) hudStatus.textContent = 'ACTIVE SCROLL';
+    }, { passive: true });
+
+    let timer = 0;
+    window.addEventListener('scroll', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (hudStatus) hudStatus.textContent = 'IDLE';
+      }, 150);
+    });
+  </script>
+</body>
+</html>

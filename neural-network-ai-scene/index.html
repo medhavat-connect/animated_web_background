@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Network AI Mesh — Medhavat 3D WebGL</title>
+  <meta name="description" content="Dynamic synaptic neural graph with traveling signal pulses and activation clusters." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #020509;
+      --accent-purple: #b266ff;
+      --accent-cyan: #4fe0ff;
+      --text-primary: #ffffff;
+      --text-muted: #7d96b3;
+      --border-light: rgba(255, 255, 255, 0.1);
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    #service-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #service-canvas:active {
+      cursor: grabbing;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(2, 5, 9, 0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(178, 102, 255, 0.15);
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+      transform: translateY(-1px);
+    }
+    .info-card {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 50;
+      max-width: 420px;
+      background: rgba(2, 5, 9, 0.82);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(178, 102, 255, 0.15);
+      border: 1px solid rgba(178, 102, 255, 0.3);
+      border-radius: 9999px;
+      color: var(--accent-purple);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: #b5c7e0;
+    }
+    @media (max-width: 768px) {
+      .info-card {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/" class="brand-badge" title="Back to Component Hub">
+      <div class="brand-icon">🧠</div>
+      <span>NEURAL NETWORK AI GRAPH</span>
+    </a>
+    <a href="/" class="nav-btn">
+      <span>🏠</span> Library Hub
+    </a>
+  </header>
+
+  <canvas id="service-canvas"></canvas>
+
+  <aside class="info-card">
+    <span class="pill">Three.js + Synaptic Graph Shaders</span>
+    <h1 class="title">AI Neural Mesh & Signal Pulses</h1>
+    <p class="desc">
+      Interactive 3D graph representing neural layers, decision pathways, and synaptic data exchange with traveling luminous packet clusters and auto-damping orbit physics.
+    </p>
+    <div class="tech-tags">
+      <span class="tag">Synaptic Mesh</span>
+      <span class="tag">Pulse Propagation</span>
+      <span class="tag">OrbitControls</span>
+      <span class="tag">Three.js</span>
+    </div>
+  </aside>
+
+  <script type="module" src="./service-ai-scene.js"></script>
+</body>
+</html>

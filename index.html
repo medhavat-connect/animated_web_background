@@ -3,123 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CYBER FRAME 240 - Cinematic Scroll Hero</title>
-  <meta name="description" content="Ultra-smooth, scroll-controlled 30 FPS video frame sequence hero section built with HTML5 Canvas and dynamic image preloader." />
-  <link rel="stylesheet" href="/src/style.css" />
+  <title>Medhavat Technologies — Interactive Animation & 3D WebGL Element Library</title>
+  <meta name="description" content="Production-ready library of interactive 3D WebGL scenes, physics-driven UI components, TSL shader simulations, and 2D canvas effects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/hub.css" />
 </head>
 <body>
 
-  <!-- Minimalist Premium Preloader -->
-  <div id="preloader" class="preloader">
-    <div class="loader-content">
-      <div class="loader-badge">
-        <span class="pulse-dot"></span>
-        <span>Initialising Sequence Engine</span>
+  <!-- Interactive Subtle Particle Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <div class="ambient-glows">
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+    <div class="glow-orb glow-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Main Header / Nav -->
+    <header class="header-nav">
+      <a href="/" class="brand">
+        <div class="brand-icon">MT</div>
+        <div class="brand-info">
+          <span class="brand-title">MEDHAVAT TECHNOLOGIES</span>
+          <span class="brand-sub">ANIMATION & 3D WEBGL LIBRARY</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="nav-badge">
+          <span class="pulse-dot"></span>
+          <span>10 Elements Ready</span>
+        </div>
       </div>
-      <div id="loader-percent" class="loader-percent">0%</div>
-      <div class="loader-bar-bg">
-        <div id="loader-bar-fill" class="loader-bar-fill"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hub-hero">
+      <div class="hero-tag">
+        <span>⚡</span> High-Performance Visual Engineering
       </div>
-      <div id="loader-subtext" class="loader-subtext">Preloading 240 high-definition frames...</div>
+      <h1 class="hero-heading">
+        Modular Animation & <br />
+        <span class="gradient-text">3D WebGL Effect Library</span>
+      </h1>
+      <p class="hero-desc">
+        A centralized catalog of production-grade interactive physics components, custom GLSL shader simulations, and 3D WebGL scenes engineered for modern web applications.
+      </p>
+    </section>
+
+    <!-- Stats Row -->
+    <section class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-value">10</span>
+        <span class="stat-label">Core Animation Modules</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">60 FPS</span>
+        <span class="stat-label">Target Performance</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">TSL + GLSL</span>
+        <span class="stat-label">Hardware Shaders</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Modular & Standalone</span>
+      </div>
+    </section>
+
+    <!-- Controls & Category Filtering Bar -->
+    <section class="controls-bar">
+      <div class="category-tabs" role="tablist">
+        <button class="tab-btn active" data-category="all" role="tab">⚡ All Elements (10)</button>
+        <button class="tab-btn" data-category="webgl" role="tab">🪐 3D WebGL & Shaders (6)</button>
+        <button class="tab-btn" data-category="physics" role="tab">🧲 Physics & UI (1)</button>
+        <button class="tab-btn" data-category="canvas" role="tab">🎨 Canvas & Matrix VFX (2)</button>
+        <button class="tab-btn" data-category="scroll" role="tab">📜 Scroll Kinetics (1)</button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search elements or technologies..." 
+          aria-label="Search animation elements"
+        />
+      </div>
+    </section>
+
+    <!-- Interactive Component Showcase Grid -->
+    <main id="elements-grid" class="elements-grid" aria-label="Component Showcase Grid">
+      <!-- Dynamically populated by /src/hub.js -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="hub-footer">
+      <p>Medhavat Technologies &copy; 2026 // Production Visual Effects & Interactive 3D Component Library</p>
+    </footer>
+  </div>
+
+  <!-- Quick Specs & Code Modal Drawer -->
+  <div id="doc-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div id="modal-title-text" class="modal-title">
+          <span>📋</span> Component Architecture
+        </div>
+        <button id="modal-close-btn" class="modal-close" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section-title">Mathematical Formula & Mechanics</div>
+        <div id="modal-math-content" class="modal-code-block"></div>
+
+        <div class="modal-section-title">Architecture Highlights</div>
+        <ul id="modal-features-list" class="modal-features-list"></ul>
+
+        <div class="modal-section-title">Quick Integration Snippet</div>
+        <pre id="modal-code-content" class="modal-code-block"></pre>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <a id="modal-launch-link" href="#" class="btn-launch" style="max-width: 220px;">
+            <span>Launch Dedicated View</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <a href="#" class="nav-brand">
-      <div class="brand-icon">240</div>
-      <span>NEO // ANIME</span>
-    </a>
-    <div class="nav-actions">
-      <button id="audio-toggle" class="btn-icon" title="Toggle Ambient Audio Synth">
-        <span>🔊</span> Audio: OFF
-      </button>
-      <button id="motion-toggle" class="btn-icon" title="Toggle Motion Smoothness">
-        <span>⚡</span> Smooth: ON
-      </button>
-      <button id="fullscreen-toggle" class="btn-icon" title="Toggle Fullscreen">
-        <span>⛶</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Locked 100vh Hero Scroll Sequence Section -->
-  <section id="sequence-section" class="sequence-section">
-    <div class="sticky-hero">
-      <canvas id="hero-canvas"></canvas>
-      <div class="hero-vignette"></div>
-
-      <!-- Keyframe Story Overlays -->
-      <div class="hero-story-overlay">
-        <!-- Story Card 1 (0% - 22%) -->
-        <div class="story-card active" data-start="0" data-end="0.22">
-          <span class="story-pill">ANIME ENGINE v2.4</span>
-          <h1 class="story-title">NEO TOKYO <span>2099</span></h1>
-          <p class="story-desc">
-            A high-performance scroll-driven sequence experience. Every frame rendered on HTML5 Canvas synchronized directly to your scroll position.
-          </p>
-        </div>
-
-        <!-- Story Card 2 (25% - 48%) -->
-        <div class="story-card" data-start="0.25" data-end="0.48">
-          <span class="story-pill">PRECISION MOTION</span>
-          <h2 class="story-title">FLUIDITY AT <span>30 FPS</span></h2>
-          <p class="story-desc">
-            Decoded dynamically in image memory with zero latency. Scroll down to advance, scroll up to reverse smoothly.
-          </p>
-        </div>
-
-        <!-- Story Card 3 (52% - 75%) -->
-        <div class="story-card" data-start="0.52" data-end="0.75">
-          <span class="story-pill">NEON HORIZON</span>
-          <h2 class="story-title">ENGINEERED FOR <span>PERFECTION</span></h2>
-          <p class="story-desc">
-            HiDPI pixel ratio scaling guarantees ultra-crisp presentation on 4K displays with responsive cover aspect ratio mapping.
-          </p>
-        </div>
-
-        <!-- Story Card 4 (78% - 100%) -->
-        <div class="story-card" data-start="0.78" data-end="1.0">
-          <span class="story-pill">CLIMAX REACHED</span>
-          <h2 class="story-title">THE FUTURE IS <span>NOW</span></h2>
-          <p class="story-desc">
-            Sequence complete. Scroll back up to replay the cinematic animation.
-          </p>
-        </div>
-      </div>
-
-      <!-- Scroll Hint -->
-      <div class="scroll-hint">
-        <div class="mouse-icon">
-          <div class="mouse-wheel"></div>
-        </div>
-        <span>SCROLL TO ANIMATE</span>
-      </div>
-
-      <!-- Floating HUD Dashboard -->
-      <div id="hud-dashboard" class="hero-hud-dashboard">
-        <div class="hud-row">
-          <span class="hud-label">FRAME INDEX</span>
-          <span id="hud-frame-num" class="hud-value">001 / 240</span>
-        </div>
-        <div class="hud-row">
-          <span class="hud-label">PROGRESS</span>
-          <span id="hud-progress-percent" class="hud-value">0%</span>
-        </div>
-        
-        <div id="hud-scrubber-bg" class="hud-scrubber-bg" title="Click or drag to seek frame">
-          <div id="hud-scrubber-fill" class="hud-scrubber-fill"></div>
-        </div>
-
-        <div class="hud-controls">
-          <button id="hud-lerp-btn" class="hud-btn" title="Toggle Smooth Interpolation">LERP: ON</button>
-          <button id="hud-play-btn" class="hud-btn" title="Auto-Preview Sequence">PREVIEW</button>
-          <button id="hud-top-btn" class="hud-btn" title="Reset to Start">RESET</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script type="module" src="/main.js"></script>
+  <script type="module" src="/src/hub.js"></script>
 </body>
 </html>

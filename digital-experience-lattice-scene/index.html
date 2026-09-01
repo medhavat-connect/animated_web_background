@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Experience Lattice — Medhavat 3D WebGL</title>
+  <meta name="description" content="Undulating 3D wave plane with mouse raycast proximity displacement and interactive service nodes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #020509;
+      --accent-cyan: #4fe0ff;
+      --accent-emerald: #10b981;
+      --text-primary: #ffffff;
+      --text-muted: #789eaa;
+      --border-light: rgba(255, 255, 255, 0.1);
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    #service-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #service-canvas:active {
+      cursor: grabbing;
+    }
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 200;
+      background: rgba(2, 5, 9, 0.85);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      opacity: 0;
+      transform: translate(12px, -50%);
+      transition: opacity 0.15s ease;
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
+    }
+    #loading {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(2, 5, 9, 0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(79, 224, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+    .info-card {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 50;
+      max-width: 420px;
+      background: rgba(2, 5, 9, 0.82);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(79, 224, 255, 0.15);
+      border: 1px solid rgba(79, 224, 255, 0.3);
+      border-radius: 9999px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: #9ab4c4;
+    }
+    @media (max-width: 768px) {
+      .info-card {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/" class="brand-badge" title="Back to Component Hub">
+      <div class="brand-icon">🌐</div>
+      <span>DIGITAL EXPERIENCE LATTICE</span>
+    </a>
+    <a href="/" class="nav-btn">
+      <span>🏠</span> Library Hub
+    </a>
+  </header>
+
+  <canvas id="service-canvas"></canvas>
+  <div id="tooltip"></div>
+  <div id="loading">Initializing Experience Lattice...</div>
+
+  <aside class="info-card">
+    <span class="pill">Three.js + Shaders & Raycasting</span>
+    <h1 class="title">Digital Experience Lattice Plane</h1>
+    <p class="desc">
+      Undulating 3D wave plane with mouse raycast proximity displacement, high-res interactive nodes, dynamic shader vertex animation, and smooth orbit damping.
+    </p>
+    <div class="tech-tags">
+      <span class="tag">Wave Displacement</span>
+      <span class="tag">Mouse Raycasting</span>
+      <span class="tag">Interactive Nodes</span>
+      <span class="tag">Three.js</span>
+    </div>
+  </aside>
+
+  <script type="module" src="./service-web-scene.js"></script>
+</body>
+</html>
