@@ -24,7 +24,7 @@ export class CursorWave {
       backgroundColor: '#07090e',     // Canvas background fill color
       opacity: 1.0,                   // Canvas master opacity (0-1)
       dpr: Math.min(window.devicePixelRatio || 1, 2), // Device pixel ratio cap
-      shapes: ['code', 'braces', 'terminal', 'layers', 'atom', 'database', 'gear', 'rocket', 'box', 'bug'],
+      shapes: ['1', '0'],
       colors: [
         '#00f0ff',
         '#7000ff',
@@ -385,6 +385,16 @@ export class CursorWave {
 
   drawShape(ctx, shape, cellSize) {
     const s = cellSize * 0.35;
+
+    // Binary Matrix Digits "1" and "0"
+    if (shape === '1' || shape === '0') {
+      const fontSize = Math.max(12, cellSize * 0.7);
+      ctx.font = `800 ${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(shape, 0, 0);
+      return;
+    }
 
     ctx.beginPath();
     switch (shape) {

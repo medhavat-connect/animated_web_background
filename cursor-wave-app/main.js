@@ -4,7 +4,7 @@ import { CursorWave } from './cursor-wave.js';
 const PRESETS = {
   neon: {
     backgroundColor: '#07090e',
-    shapes: ['code', 'braces', 'terminal', 'layers', 'atom', 'database', 'gear', 'rocket', 'box', 'bug'],
+    shapes: ['1', '0'],
     colors: [
       '#00f0ff',
       '#7000ff',
@@ -18,7 +18,7 @@ const PRESETS = {
   },
   aurora: {
     backgroundColor: '#031412',
-    shapes: ['code', 'layers', 'atom', 'rocket', 'box'],
+    shapes: ['1', '0'],
     colors: [
       '#00ff9d',
       '#00f0ff',
@@ -30,7 +30,7 @@ const PRESETS = {
   },
   sunset: {
     backgroundColor: '#12040d',
-    shapes: ['braces', 'terminal', 'gear', 'rocket', 'bug'],
+    shapes: ['1', '0'],
     colors: [
       '#ff007f',
       '#ff7700',
@@ -42,7 +42,7 @@ const PRESETS = {
   },
   gold: {
     backgroundColor: '#0c0a06',
-    shapes: ['code', 'braces', 'database', 'box'],
+    shapes: ['1', '0'],
     colors: [
       '#f59e0b',
       '#eab308',
@@ -53,7 +53,7 @@ const PRESETS = {
   },
   monochrome: {
     backgroundColor: '#05070a',
-    shapes: ['terminal', 'layers', 'gear', 'box'],
+    shapes: ['1', '0'],
     colors: [
       '#ffffff',
       '#cbd5e1',
