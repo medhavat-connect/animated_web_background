@@ -10,7 +10,7 @@ const publicImagesDir = path.join(rootDir, 'public', 'images');
 const fallbackImagesDir = path.join(rootDir, 'images');
 
 let targetDir = publicImagesDir;
-let publicPrefix = '/images/';
+let publicPrefix = 'images/';
 
 if (!fs.existsSync(publicImagesDir)) {
   if (fs.existsSync(fallbackImagesDir)) {

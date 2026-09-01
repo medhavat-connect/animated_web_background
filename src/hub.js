@@ -2,6 +2,9 @@
  * Medhavat Technologies — Animation & 3D WebGL Library Data & Controller
  */
 
+const BASE = import.meta.env.BASE_URL || './';
+const resolvePath = (p) => `${BASE}${p.replace(/^\.?\//, '')}`;
+
 export const ELEMENTS = [
   {
     id: 'cyber-frame',
@@ -14,7 +17,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #0f2744 0%, #05070c 100%)',
     description: 'High-performance scroll-driven video frame sequence engine. Decodes and scrubs 240 high-definition anime frames in GPU canvas memory with zero latency and interactive HUD scrubber.',
     techTags: ['Canvas 2D', '240 JPG Frames', 'Frame Preloader', 'HUD Scrubber', 'Web Audio Synth'],
-    path: '/cyber-frame-app/',
+    path: resolvePath('cyber-frame-app/'),
     mathDocs: 'Scroll Offset -> Frame Index Normalization: Frame(t) = Math.floor(ScrollProgress * TotalFrames)',
     architecture: [
       'Zero-latency memory caching for 240 JPG frames',
@@ -35,7 +38,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #1e1035 0%, #05070c 100%)',
     description: 'Photorealistic procedurally generated 3D jellyfish (Aurelia aurita). Features Verlet physics trailing tentacles, TSL optical shaders, bioluminescent organ pulses, and real-time Tweakpane controls.',
     techTags: ['Three.js', 'TSL Shaders', 'Verlet Physics', 'Thin-Film Fresnel', 'Tweakpane UI'],
-    path: '/jellyfish-simulation-app/',
+    path: resolvePath('jellyfish-simulation-app/'),
     mathDocs: 'Verlet Position Step: x(t + dt) = 2x(t) - x(t - dt) + a * dt^2 + Drag + Buoyancy',
     architecture: [
       'Procedural dual-layer hemisphere deformed by hydrodynamic pulse wave',
@@ -56,7 +59,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #082836 0%, #05070c 100%)',
     description: 'Zero-dependency interactive 2D vector grid matrix. Tech icons and binary digits swell, rotate, and ripple with smoothstep proximity falloff and radial shockwave bursts.',
     techTags: ['HTML5 Canvas 2D', 'Smoothstep Falloff', 'Shockwave Ripples', 'Mask Observer', 'Zero-Dep'],
-    path: '/cursor-wave-app/',
+    path: resolvePath('cursor-wave-app/'),
     mathDocs: 'Smoothstep Proximity Attraction: f(t) = t^2 * (3 - 2t) where t = clamp(1 - dist/R, 0, 1)',
     architecture: [
       'Pure native Canvas 2D vector path drawing (no SVG overhead)',
@@ -77,7 +80,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #301026 0%, #05070c 100%)',
     description: 'Tactile cursor-attraction magnetic UI buttons powered by a native damped harmonic oscillator spring physics engine. Zero Framer Motion or external physics dependencies.',
     techTags: ['Damped Spring Engine', 'Sub-stepping', 'CSS Custom Props', 'Hit Padding', 'Zero-Dep'],
-    path: '/magnetic-button-app/',
+    path: resolvePath('magnetic-button-app/'),
     mathDocs: 'Damped Harmonic Oscillator: F = -k * x - c * v (k = stiffness, c = damping, m = mass)',
     architecture: [
       'Native spring differential equations running in RAF loop',
@@ -98,7 +101,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #0c2040 0%, #05070c 100%)',
     description: 'High-fidelity Three.js hero scene featuring dual crystalline light vortexes, swirling volumetric particle vortexes, and real-time HDR UnrealBloomPass post-processing.',
     techTags: ['Three.js r185', 'UnrealBloomPass', 'EffectComposer', 'GLSL Shaders', 'Particle Vortex'],
-    path: '/bloom-portal-scene/',
+    path: resolvePath('bloom-portal-scene/'),
     mathDocs: 'Vortex Swirl: theta(r, t) = angle + sin(angle * 3.0 + r * 14.0 - t * 0.12)',
     architecture: [
       'Dual crystalline energy funnels with dynamic depth fade shaders',
@@ -115,11 +118,11 @@ export const ELEMENTS = [
     category: 'webgl',
     categoryLabel: 'WebGL 3D & Shaders',
     fps: '60 FPS WebGL',
-    badgeColor: 'rgba(16, 185, 129, 0.2)',
+    badgeColor: 'rgba(168, 85, 247, 0.2)',
     bannerGradient: 'radial-gradient(circle at 50% 50%, #0a261c 0%, #05070c 100%)',
     description: 'Interactive 3D WebGL globe with vector country boundaries parsed from GeoJSON, gyroscopic momentum physics, pulsing beacon hubs, and animated quadratic flight route arcs.',
     techTags: ['Three.js', 'GeoJSON Polygons', 'Gyroscopic Inertia', 'Flight Arcs', 'Spherical Math'],
-    path: '/interactive-globe-scene/',
+    path: resolvePath('interactive-globe-scene/'),
     mathDocs: 'Spherical Coordinate Projection: x = R*cos(lat)*sin(lon), y = R*sin(lat), z = R*cos(lat)*cos(lon)',
     architecture: [
       'Direct client-side GeoJSON parsing into 3D line geometries',
@@ -140,7 +143,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #220f38 0%, #05070c 100%)',
     description: 'Interactive 3D synaptic neural graph representing neural network layers, decision paths, and traveling luminous packet clusters with auto-damping orbit controls.',
     techTags: ['Three.js', 'Synaptic Graph', 'Pulse Propagation', 'OrbitControls', 'Bloom Shaders'],
-    path: '/neural-network-ai-scene/',
+    path: resolvePath('neural-network-ai-scene/'),
     mathDocs: 'Synaptic Signal Propagation: Position(t) = Lerp(NodeA, NodeB, (t * speed + phase) % 1.0)',
     architecture: [
       'Layered multi-depth vertex graph with weighted interconnection lines',
@@ -161,7 +164,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #09203c 0%, #05070c 100%)',
     description: 'Undulating 3D wave plane with mouse raycast proximity displacement, high-res interactive nodes, dynamic shader vertex animation, and tooltips.',
     techTags: ['Three.js', 'Vertex Wave Shader', 'Raycast Proximity', 'Interactive Tooltips'],
-    path: '/digital-experience-lattice-scene/',
+    path: resolvePath('digital-experience-lattice-scene/'),
     mathDocs: 'Displacement: z = sin(x * 0.4 + time) * cos(y * 0.4 + time) + RaycastGaussian(mouseDist)',
     architecture: [
       'Dynamic vertex buffer displacement wave plane',
@@ -182,7 +185,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #0a1f33 0%, #05070c 100%)',
     description: 'Lightweight volumetric starfield and drift kinetics designed for high-performance cloud infrastructure and tech brand themes with zero heavy overhead.',
     techTags: ['Particle Buffers', 'Volumetric Starfield', 'Torus Knot Core', 'Zero Overhead'],
-    path: '/space-nebula-scene/',
+    path: resolvePath('space-nebula-scene/'),
     mathDocs: 'Stellar Drift: Particle.z = (Particle.z + speed * delta) % MaxDepth',
     architecture: [
       'Thousands of colored particles with volumetric depth scaling',
@@ -203,7 +206,7 @@ export const ELEMENTS = [
     bannerGradient: 'radial-gradient(circle at 50% 50%, #2e1e07 0%, #05070c 100%)',
     description: 'Timeline coordinator that maps browser window scroll progression to 3D WebGL camera vectors, rotations, and section scene transitions without jitter.',
     techTags: ['Scroll Normalization', 'Cubic Easing', 'Decoupled Inertia', 'IntersectionObserver'],
-    path: '/scroll-camera-controller/',
+    path: resolvePath('scroll-camera-controller/'),
     mathDocs: 'Normalized Progression: p = clamp((scrollY - top) / (height - vh), 0, 1)',
     architecture: [
       'Converts raw scroll offsets into normalized [0, 1] progression curves',

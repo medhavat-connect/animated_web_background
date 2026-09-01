@@ -191,7 +191,8 @@ export function startBrandGlobe(canvas, accent = 0x10b981) {
   world.add(countryBorders);
   const countryFills = new THREE.Group();
   world.add(countryFills);
-  fetch("/world-countries.geojson")
+  const geojsonUrl = `${import.meta.env.BASE_URL || '/'}world-countries.geojson`;
+  fetch(geojsonUrl)
     .then((response) => {
       if (!response.ok)
         throw new Error(`Country map request failed: ${response.status}`);

@@ -31,10 +31,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Fetch frame manifest
   let frameUrls = [];
   try {
-    const res = await fetch('/frame-manifest.json');
+    const manifestUrl = `${import.meta.env.BASE_URL || '/'}frame-manifest.json`;
+    const res = await fetch(manifestUrl);
     if (res.ok) {
       const data = await res.json();
-      frameUrls = data.frames || [];
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      frameUrls = (data.frames || []).map(f => {
+        if (f.startsWith('http://') || f.startsWith('https://')) return f;
+        const cleanPath = f.replace(/^\.?\//, '');
+        return `${baseUrl}${cleanPath}`;
+      });
     }
   } catch (e) {
     console.warn('Could not load frame-manifest.json, fallback generator...', e);
@@ -42,9 +48,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Fallback if manifest empty
   if (frameUrls.length === 0) {
+    const baseUrl = import.meta.env.BASE_URL || '/';
     for (let i = 1; i <= 240; i++) {
       const pad = String(i).padStart(3, '0');
-      frameUrls.push(`/images/ezgif-frame-${pad}.jpg`);
+      frameUrls.push(`${baseUrl}images/ezgif-frame-${pad}.jpg`);
     }
   }
 

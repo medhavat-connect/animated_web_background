@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import tslOperatorPlugin from 'vite-plugin-tsl-operator';
 
 export default defineConfig({
+  base: '/animated_web_background/',
   publicDir: 'public',
   server: {
     port: 3000,
